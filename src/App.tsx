@@ -1,9 +1,18 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import {setupWorker} from "msw/browser";
+import { handlers } from './mocks/handlers';
 function App() {
+
+
+    useEffect(() => {
+        const Worker = setupWorker(...handlers);
+        void Worker.start({ onUnhandledRequest: 'bypass' });
+    }, []);
+
+
   const [count, setCount] = useState(0)
 
   return (
