@@ -3,6 +3,7 @@ import './App.css'
 import {setupWorker} from "msw/browser";
 import { handlers } from './mocks/handlers';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {RoutesComponent} from "./routes";
 function App() {
 
     const queryClient = new QueryClient()
@@ -13,10 +14,11 @@ function App() {
     }, []);
 
 
-  return (
-      <QueryClientProvider client={queryClient}>
-        <div>TESTE</div>
-      </QueryClientProvider>
+
+    return (
+          <QueryClientProvider client={queryClient}>
+            <RoutesComponent/>
+          </QueryClientProvider>
   )
 }
 
