@@ -4,12 +4,11 @@ import {Client} from "../services/types.ts";
 const clientMap = new ClientMap();
 export const handlers = [
 
-
-    http.get('/client', () => {
+    http.get('api/client', () => {
         return HttpResponse.json(clientMap.getClients() as Client[])
     }),
 
-    http.post('/client', ({request}) => {
+    http.post('api/client', ({request}) => {
         const response = request.body;
         clientMap.addClient(response as unknown as Client);
         return new HttpResponse(null, {status: 201})

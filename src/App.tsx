@@ -1,23 +1,16 @@
-import {useEffect} from 'react'
 import './App.css'
-import {setupWorker} from "msw/browser";
-import { handlers } from './mocks/handlers';
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {RoutesComponent} from "./routes";
+import {BrowserRouter} from "react-router-dom";
 function App() {
 
     const queryClient = new QueryClient()
 
-    useEffect(() => {
-        const Worker = setupWorker(...handlers);
-        void Worker.start({ onUnhandledRequest: 'bypass' });
-    }, []);
-
-
-
     return (
           <QueryClientProvider client={queryClient}>
-            <RoutesComponent/>
+              <BrowserRouter>
+                <RoutesComponent/>
+              </BrowserRouter>
           </QueryClientProvider>
   )
 }

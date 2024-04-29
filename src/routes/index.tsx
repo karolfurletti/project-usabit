@@ -1,11 +1,11 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-const List = lazy(() => import('../pages/Client/List.tsx'));
+const PageListClient = lazy(() => import('../pages/Client'));
 
 
 
 export const RoutesComponent = () => (
     <Routes>
-        <Route index element={<List />} />
+        <Route path={'/'} index element={<PageListClient />} />
     </Routes>
 )

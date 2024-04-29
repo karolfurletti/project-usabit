@@ -14,10 +14,14 @@
     "@mui/material": "^5.15.15",
     "@mui/styled-engine-sc": "6.0.0-alpha.18",
     "@tanstack/react-query": "^5.32.0",
+    "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.3",
     "react-router-dom": "^6.23.0",
     "styled-components": "^6.1.8",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.3.2",
     "zod": "^3.23.4"
   },
   "devDependencies": {
@@ -33,5 +37,10 @@
     "msw": "^2.2.14",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
