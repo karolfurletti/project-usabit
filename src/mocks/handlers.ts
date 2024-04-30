@@ -8,13 +8,13 @@ export const handlers = [
         return HttpResponse.json(clientMap.getClients() as Client[])
     }),
 
-    http.post('api/client', ({request}) => {
-        const response = request.body;
+    http.post('api/client', async ({request}) => {
+        const response = await request.json()
         clientMap.addClient(response as unknown as Client);
         return new HttpResponse(null, {status: 201})
     }),
 
-    http.put('/client/:id', ({request, params}) => {
+    http.put('api/client/:id', ({request, params}) => {
         const { id } = params;
         const response = request.body;
         const result = clientMap.updateClient(id as string, response as unknown as Client);
@@ -25,11 +25,11 @@ export const handlers = [
         }
     }),
 
-    http.delete('/client/:id', ({params}) => {
-        const { id } = params;
+    http.delete('api/client/:id', async ({params}) => {
+        const {id} = params
         const result = clientMap.removeClient(id as string);
         if (result) {
-            return new HttpResponse(null, {status: 204})
+            return new HttpResponse(null, {status: 200})
         } else {
             return new HttpResponse(null, {status: 404})
         }

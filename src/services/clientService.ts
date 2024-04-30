@@ -7,21 +7,22 @@ export class ClientMap extends Map<string, Client> {
         super(clients);
     }
 
-    private saveClients() {
-        sessionStorage.setItem('clients', JSON.stringify(Array.from(this.entries())));
+    private saveClients(client: Client) {
+        let existingClients = JSON.parse(sessionStorage.getItem('clients') || '[]');
+        existingClients.push(client);
+        sessionStorage.setItem('clients', JSON.stringify(existingClients));
     }
 
     public addClient(client: Client) {
         client.id = Date.now().toString();
-        this.set(client.id, client);
-        this.saveClients();
+        this.saveClients(client)
         return client;
     }
 
     public updateClient(id: string, client: Client) {
         if (this.has(id)) {
             this.set(id, client);
-            this.saveClients();
+            this.saveClients(client);
             return client;
         } else {
             return null;
@@ -29,15 +30,22 @@ export class ClientMap extends Map<string, Client> {
     }
 
     public removeClient(id: string) {
-        const removedClient = this.get(id);
-        if (removedClient) {
-            this.delete(id);
-            this.saveClients();
+        const clientsString = sessionStorage.getItem('clients');
+        let clients = clientsString ? JSON.parse(clientsString) : [];
+
+        const index = clients.findIndex((client: Client) => client.id === id);
+
+        if (index !== -1) {
+            const removedClients = clients.splice(index, 1);
+            sessionStorage.setItem('clients', JSON.stringify(clients));
+            return removedClients[0];
+        } else {
+            return null;
         }
-        return removedClient;
     }
 
     public getClients() {
-        return Array.from(this.values());
+        const clientsString = sessionStorage.getItem('clients');
+        return clientsString ? JSON.parse(clientsString) : []
     }
 }
